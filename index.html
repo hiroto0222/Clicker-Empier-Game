@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+    <title>🍔 Hamburger Clicker</title>
+</head>
+<body class="text-white">
+    <div id="target" class="vh-100 d-flex flex-column justify-content-center p-3">
+        <div id="hamburger-container" class="d-flex flex-column justify-content-center col-12 py-2 px-4 mb-2">
+            <div id="hamburger-info-container" class="d-flex flex-column text-center align-items-center py-2">
+                <h1 id="hamburger-cnt">1,102 Burgers</h1>
+                <h2 id="tot-profit-sec">$25 / sec</h2>
+            </div>
+            <div id="hamburger-click-container" class="text-center p-4">
+                <img src="images/hamburger.png" alt="hamburger-img" onclick="handleHamburgerClick()">
+            </div>
+        </div>
+        <div id="items-container" class="d-flex flex-column justify-content-center col-12 py-2 px-4">
+            <div id="items-info-container" class="d-flex flex-column text-center align-items-center py-2">
+                <h1>1,102 Burgers</h1>
+                <h2>$25 / sec</h2>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="index.js"></script>
+</html>

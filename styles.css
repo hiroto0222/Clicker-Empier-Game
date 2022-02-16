@@ -1,0 +1,23 @@
+h1 {
+    font-size: 2em;
+}
+
+body {
+    background-color: aliceblue;
+}
+
+#hamburger-container, #items-container {
+    background-color: grey;
+    border-radius: 10px;
+}
+
+#hamburger-info-container, #items-info-container {
+    background-color: coral;
+    border-radius: 10px;
+}
+
+#hamburger-click-container img {
+    max-width: 200px;
+    object-fit: contain;
+    cursor: pointer;
+}
