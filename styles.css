@@ -1,23 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+body {
+    background-color: aliceblue;
+    font-family: 'Poppins', sans-serif;
+}
+
 h1 {
     font-size: 2em;
 }
 
-body {
-    background-color: aliceblue;
+p {
+    font-size: 1.2em;
+    font-weight: bold;
 }
 
-#hamburger-container, #items-container {
+.col-md-6 {
+    height: 60vh !important;
+}
+
+.props-container, .login-container {
     background-color: grey;
     border-radius: 10px;
 }
 
-#hamburger-info-container, #items-info-container {
+.login-container img {
+    max-width: 100px;
+}
+
+.inner-container {
     background-color: coral;
     border-radius: 10px;
 }
 
-#hamburger-click-container img {
-    max-width: 200px;
-    object-fit: contain;
+#hamburgerInfoContainer img {
+    max-width: 150px;
     cursor: pointer;
+}
+
+.products-container {
+    overflow: auto;
+    height: 45vh;
+}
+.products-container::-webkit-scrollbar {
+    display: none;
+}
+
+#productsInfoContainer img {
+    max-width: 100px;
+}
+
+.profit-text {
+    color: black;
+}
+
+@media screen and (min-width: 768px) {
+    #hamburgerInfoContainer img {
+        max-width: 300px;
+    }
+
+    .hamburger-img-container {
+        margin-top: 150px;
+    }
+
+    .products-container {
+        height: 70vh;
+    }
+
+    #productsInfoContainer img {
+        max-width: 200px;
+    }
 }

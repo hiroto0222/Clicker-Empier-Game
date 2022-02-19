@@ -9,23 +9,69 @@
     <title>🍔 Hamburger Clicker</title>
 </head>
 <body class="text-white">
-    <div id="target" class="vh-100 d-flex flex-column justify-content-center p-3">
-        <div id="hamburger-container" class="d-flex flex-column justify-content-center col-12 py-2 px-4 mb-2">
+    <div id="initialPage">
+        <div class="vh-100 d-flex justify-content-center align-items-center">
+            <div class="login-container justify-content-center text-center p-4">
+                <img src="images/hamburger.png" alt="hamburger-img" class="p-2">
+                <h1 class="py-2">Burger Clicker Game</h1>
+                <form>
+                    <div class="form-row pb-3">
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="Username" id="username" required>
+                        </div>
+                    </div>
+                </form>
+                <div class="d-flex justify-content-between">
+                    <div class="col-5">
+                        <button class="btn btn-primary col-12" type="submit" id="register" onclick="registerUser()">New</button>
+                    </div>
+                    <div class="col-5">
+                        <button class="btn btn-primary col-12" type="submit" id="login" onclick="loginUser()">Login</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="gamePage" class="d-none">
+        <div class="vh-100 d-flex justify-content-center py-2">
+            <div class="d-flex flex-column flex-md-row col-12 col-md-11 p-2">
+                <div id="hamburgerInfo" class="props-container col-12 col-md-4 p-1 mx-md-2"></div>
+                <div class="col-12 col-md-8 mt-2 mt-md-0">
+                    <div id="userInfo" class="props-container p-1"></div>
+                    <div class="props-container mt-2">
+                        <div class="p-1 products-container">
+                            <div id="productsInfo"></div>
+                        </div>
+                    </div>
+                    <div id="dataUtils"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- <div id="target" class="vh-100 d-flex flex-column flex-md-row justify-content-center align-items-center p-3">
+        <div id="hamburger-container" class="d-flex flex-column justify-content-center col-md-6 col-12 py-2 px-2 mb-2 mx-md-2 ">
             <div id="hamburger-info-container" class="d-flex flex-column text-center align-items-center py-2">
                 <h1 id="hamburger-cnt">1,102 Burgers</h1>
-                <h2 id="tot-profit-sec">$25 / sec</h2>
+                <div class="d-flex col-12 text-center">
+                    <h2 class="col-6" id="tot-profit-click">$25 / click</h2>
+                    <h2 class="col-6" id="tot-profit-sec">$25 / sec</h2>  
+                </div>
             </div>
             <div id="hamburger-click-container" class="text-center p-4">
                 <img src="images/hamburger.png" alt="hamburger-img" onclick="handleHamburgerClick()">
             </div>
         </div>
-        <div id="items-container" class="d-flex flex-column justify-content-center col-12 py-2 px-4">
+        <div id="items-container" class="d-flex flex-column justify-content-center col-md-6 col-12 py-2 px-2">
             <div id="items-info-container" class="d-flex flex-column text-center align-items-center py-2">
                 <h1>1,102 Burgers</h1>
                 <h2>$25 / sec</h2>
             </div>
         </div>
-    </div>
+    </div> -->
 </body>
 <script src="index.js"></script>
 </html>
