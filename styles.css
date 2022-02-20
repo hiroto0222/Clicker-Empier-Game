@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 body {
-    background-color: aliceblue;
     font-family: 'Poppins', sans-serif;
 }
 
@@ -19,7 +18,7 @@ p {
 }
 
 .props-container, .login-container {
-    background-color: grey;
+    background-color: beige;
     border-radius: 10px;
 }
 
@@ -35,6 +34,10 @@ p {
 #hamburgerInfoContainer img {
     max-width: 150px;
     cursor: pointer;
+}
+
+#hamburgerInfoContainer img:active {
+    transform: scale(0.95);
 }
 
 .products-container {
@@ -63,10 +66,10 @@ p {
     }
 
     .products-container {
-        height: 70vh;
+        height: 75vh;
     }
 
     #productsInfoContainer img {
-        max-width: 200px;
+        max-width: 150px;
     }
 }

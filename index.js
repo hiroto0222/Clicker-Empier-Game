@@ -1,6 +1,6 @@
 // User
 class User {
-    constructor(username, days, age, money, burgers, clickProfit, dailyProfit, purchasedProducts) {
+    constructor(username, days, age, money, burgers, clickProfit, dailyProfit, purchasedProducts, yearCounter) {
         this.username = username;
         this.days = days;
         this.age = age;
@@ -9,7 +9,7 @@ class User {
         this.clickProfit = clickProfit;
         this.dailyProfit = dailyProfit;
         this.purchasedProducts = purchasedProducts;
-        this.yearCounter = 0;
+        this.yearCounter = yearCounter;
     }
 
     burgerCnt() {
@@ -35,15 +35,26 @@ class User {
     }
 
     purchase(key) {
-        this.money -= this.purchasedProducts[key].price;
-        this.purchasedProducts[key].currPurchases++;
+        if (this.purchasedProducts[key].maxPurchases > this.purchasedProducts[key].currPurchases) {
+            this.money -= this.purchasedProducts[key].price;
+            this.purchasedProducts[key].currPurchases++;
 
-        // update click profit
-        if (this.purchasedProducts[key].type === "ability") {
-            this.clickProfit += this.purchasedProducts[key].profit;
-            config.hamburgerInfo.querySelector("#clickProfit").innerHTML = `$${this.clickProfit} / click`;
-        }
-        // update daily profit
+            // update click profit
+            if (this.purchasedProducts[key].type === "ability") {
+                this.clickProfit += this.purchasedProducts[key].profit;
+                config.hamburgerInfo.querySelector("#clickProfit").innerHTML = `$${this.clickProfit} / click`;
+            }
+            // update daily profit
+            else {
+                if (this.purchasedProducts[key].type === "investment") {
+                    this.dailyProfit += ((this.purchasedProducts[key].profit / 100) * this.purchasedProducts[key].currPurchases * this.purchasedProducts[key].price);
+                }
+                else {
+                    this.dailyProfit += this.purchasedProducts[key].profit;
+                }
+                config.hamburgerInfo.querySelector("#dailyProfit").innerHTML = `$${this.dailyProfit} / sec`;
+            }
+        } 
     }
 
     updateAge() {
@@ -88,17 +99,17 @@ class Product {
 
 // default products
 const products = {
-    "flipMachine": new Product("Flip Machine", 15000, 25, "ability", 500, 0, "グリルをクリックごとに 25円 を取得します。", "images/hamburger.png"),
-    "etfStock": new Product("ETF Stock", 300000, 0.1, "investment", Infinity, 0, "ETF 銘柄の購入分をまとめて加算し、毎秒 0.1% を取得します。", "images/hamburger.png"),
-    "etfBonds": new Product("ETF Bonds", 300000, 0.07, "investment", Infinity, 0, "債券 ETF の購入分をまとめて加算し、毎秒 0.07% を取得します。", "images/hamburger.png"),
-    "lemonadeStand": new Product("Lemonade Stand", 30000, 30, "estate", 1000, 0, "毎秒 30 円を取得します。", "images/hamburger.png"),
-    "iceCreamTruck": new Product("Ice Cream Truck", 100000, 120, "estate", 500, 0, "毎秒 120 円を取得します。", "images/hamburger.png"),
-    "house": new Product("House", 20000000, 32000, "estate", 100, 0, "毎秒 32,000 円を取得します。", "images/hamburger.png"),
-    "townHouse": new Product("Town House", 40000000, 64000, "estate", 100, 0, "毎秒 64,000 円を取得します。", "images/hamburger.png"),
-    "mansion": new Product("Mansion", 250000000, 500000, "estate", 20, 0, "毎秒 500,000 円を取得します。", "images/hamburger.png"),
-    "industrialSpace": new Product("Industrial Space", 1000000000, 2200000, "estate", 10, 0, "毎秒 2,200,000 円を取得します。", "images/hamburger.png"),
-    "hotelSkyscraper": new Product("Hotel Skyscraper", 10000000000, 25000000, "estate", 5, 0, "毎秒 25,000,000 円を取得します。", "images/hamburger.png"),
-    "railway": new Product("Bullet-Speed Sky Railway", 1000000000000, 30000000000, "estate", 1, 0, "毎秒 30,000,000,000 円を取得します。", "images/hamburger.png"),
+    "flipMachine": new Product("Flip Machine", 15000, 100, "ability", 500, 0, "グリルをクリックごとに 25円 を取得します。", "https://cdn.pixabay.com/photo/2019/06/30/20/09/grill-4308709_960_720.png"),
+    "etfStock": new Product("ETF Stock", 300000, 0.1, "investment", Infinity, 0, "ETF 銘柄の購入分をまとめて加算し、毎秒 0.1% を取得します。", "https://cdn.pixabay.com/photo/2016/03/31/20/51/chart-1296049_960_720.png"),
+    "etfBonds": new Product("ETF Bonds", 300000, 0.07, "investment", Infinity, 0, "債券 ETF の購入分をまとめて加算し、毎秒 0.07% を取得します。", "https://cdn.pixabay.com/photo/2016/03/31/20/51/chart-1296049_960_720.png"),
+    "lemonadeStand": new Product("Lemonade Stand", 30000, 30, "estate", 1000, 0, "毎秒 30 円を取得します。", "https://cdn.pixabay.com/photo/2012/04/15/20/36/juice-35236_960_720.png"),
+    "iceCreamTruck": new Product("Ice Cream Truck", 100000, 120, "estate", 500, 0, "毎秒 120 円を取得します。", "https://cdn.pixabay.com/photo/2020/01/30/12/37/ice-cream-4805333_960_720.png"),
+    "house": new Product("House", 20000000, 32000, "estate", 100, 0, "毎秒 32,000 円を取得します。", "https://cdn.pixabay.com/photo/2016/03/31/18/42/home-1294564_960_720.png"),
+    "townHouse": new Product("Town House", 40000000, 64000, "estate", 100, 0, "毎秒 64,000 円を取得します。", "https://cdn.pixabay.com/photo/2019/06/15/22/30/modern-house-4276598_960_720.png"),
+    "mansion": new Product("Mansion", 250000000, 500000, "estate", 20, 0, "毎秒 500,000 円を取得します。", "https://cdn.pixabay.com/photo/2017/10/30/20/52/condominium-2903520_960_720.png"),
+    "industrialSpace": new Product("Industrial Space", 1000000000, 2200000, "estate", 10, 0, "毎秒 2,200,000 円を取得します。", "https://cdn.pixabay.com/photo/2012/05/07/17/35/factory-48781_960_720.png"),
+    "hotelSkyscraper": new Product("Hotel Skyscraper", 10000000000, 25000000, "estate", 5, 0, "毎秒 25,000,000 円を取得します。", "https://cdn.pixabay.com/photo/2012/05/07/18/03/skyscrapers-48853_960_720.png"),
+    "railway": new Product("Bullet-Speed Sky Railway", 1000000000000, 30000000000, "estate", 1, 0, "毎秒 30,000,000,000 円を取得します。", "https://cdn.pixabay.com/photo/2013/07/13/10/21/train-157027_960_720.png"),
 }
 
 
@@ -129,7 +140,11 @@ const updateAllGameInfo = (currUser) => {
     config.userInfo.innerHTML = ``;
     config.hamburgerInfo.innerHTML = ``;
     config.productsInfo.innerHTML = ``;
-    gamePage(currUser);
+
+    config.userInfo.append(userInfo(currUser));
+    startInterval(currUser);
+    config.hamburgerInfo.append(hamburgerInfo(currUser));
+    config.productsInfo.append(productsInfo(currUser));
 }
 
 const updateUserAge = (currUser) => {
@@ -141,6 +156,17 @@ const updateUserMoney = (currUser) => {
     currUser.incrementDailyMoney();
     config.userInfo.querySelector("#userInfo-money").innerHTML = `$${currUser.money}`;
 }
+
+const updateButtonStates = (currUser, purchaseButton, key) => {
+    if (!currUser.canPurchase(key) || (currUser.purchasedProducts[key].currPurchases >= currUser.purchasedProducts[key].maxPurchases)) {
+        purchaseButton.disabled = true;
+        purchaseButton.classList.replace("btn-success", "btn-danger");
+    } else {
+        purchaseButton.disabled = false;
+        purchaseButton.classList.replace("btn-danger", "btn-success");
+    }
+}
+
 
 // intervals timer
 let interval;
@@ -159,14 +185,40 @@ const stopInterval = () => {
 
 
 // initialPage logic
+const userToLocalStorage = (currUser) => {
+    localStorage.setItem(currUser.username, JSON.stringify(currUser));
+    console.log(localStorage);
+}
+
+const localStorageToUser = (username) => {
+    
+}
+
 const loginUser = () => {
+    let username = document.getElementById("username").value.replace(/ /g, "");
+    if (username in localStorage) {
+        userObject = JSON.parse(localStorage.getItem(username));
+        let purchasedProducts = {};
+        for (let [key, product] of Object.entries(userObject.purchasedProducts)) {
+            let maxPurchases = product.maxPurchases !== null ? product.maxPurchases : Infinity;
+            purchasedProducts[key] = new Product(product.name, product.price, product.profit, product.type, maxPurchases, product.currPurchases, product.description, product.imgURL);
+        }
+        let currUser = new User(userObject.username, userObject.days, userObject.age, userObject.money, userObject.burgers, userObject.clickProfit, userObject.dailyProfit, purchasedProducts, userObject.yearCounter);
+        console.log(currUser);
+        displayNone(config.initialPage);
+        displayBlock(config.gamePage);
+        gamePage(currUser);
+    } else {
+        alert("this user does not exist");
+    }
     return;
 }
 
 const registerUser = () => {
     let username = document.getElementById("username").value.replace(/ /g, "");
     if (username !== "") {
-        let currUser = new User(username, 0, 20, 30000, 0, 25, 0, products);
+        let currUser = new User(username, 0, 20, 30000, 0, 25, 0, products, 0);
+        userToLocalStorage(currUser);
         displayNone(config.initialPage);
         displayBlock(config.gamePage);
         gamePage(currUser);
@@ -183,6 +235,9 @@ const gamePage = (currUser) => {
     
     // productsInfo
     config.productsInfo.append(productsInfo(currUser));
+
+    // dataUtils
+    config.dataUtils.append(dataUtils(currUser));
 }
 
 const updateMoney = (currUser) => {
@@ -196,7 +251,7 @@ const hamburgerInfo = (currUser) => {
     hamburgerInfoContainer.id = "hamburgerInfoContainer";
     hamburgerInfoContainer.innerHTML = 
     `
-        <div class="inner-container text-center">
+        <div class="inner-container text-center py-md-3">
             <h1 id="hamburgerCnt">${currUser.burgerCnt()} Burgers</h1>
             <div class="d-flex col-12 text-center">
                 <p class="col-6" id="clickProfit">$${currUser.clickProfit} / click</p>
@@ -213,6 +268,10 @@ const hamburgerInfo = (currUser) => {
         currUser.clickBurger();
         hamburgerCnt.innerHTML = `${currUser.burgerCnt()} Burgers`;
         updateMoney(currUser);
+        for (let [key, product] of Object.entries(products)) {
+            let purchaseButton = productsInfoContainer.querySelector("#" + key);
+            updateButtonStates(currUser, purchaseButton, key);
+        }
     });
 
     return hamburgerInfoContainer;
@@ -253,6 +312,7 @@ const productsInfo = (currUser) => {
     let productsInfoContainer = document.createElement("div");
     productsInfoContainer.id = "productsInfoContainer";
     for (let [key, product] of Object.entries(products)) {
+        let maxPurchases = currUser.purchasedProducts[key].maxPurchases === Infinity ? "∞" : currUser.purchasedProducts[key].maxPurchases;
         productsInfoContainer.innerHTML += 
         `
             <div class="col-12 p-1">
@@ -263,7 +323,7 @@ const productsInfo = (currUser) => {
                     <div class="col-9 px-4">
                         <div class="col-12 d-flex justify-content-between">
                             <h2>${product.name}</h2>
-                            <h2>${currUser.purchasedProducts[key].currPurchases}</h2>
+                            <h2>${currUser.purchasedProducts[key].currPurchases} / ${maxPurchases}</h2>
                         </div>
                         <p>${product.description}</p>
                         <div class="col-12 d-flex justify-content-between">
@@ -281,13 +341,7 @@ const productsInfo = (currUser) => {
 
     for (let [key, product] of Object.entries(products)) {
         let purchaseButton = productsInfoContainer.querySelector("#" + key);
-        if (!currUser.canPurchase(key)) {
-            purchaseButton.disabled = true;
-            purchaseButton.classList.replace("btn-success", "btn-danger");
-        } else {
-            purchaseButton.disabled = false;
-            purchaseButton.classList.replace("btn-danger", "btn-success");
-        }
+        updateButtonStates(currUser, purchaseButton, key);
         purchaseButton.addEventListener("click", () => {
             purchaseProduct(key, currUser);
         })
@@ -301,4 +355,21 @@ const purchaseProduct = (key, currUser) => {
         currUser.purchase(key);
     }
     updateAllGameInfo(currUser);
+}
+
+const dataUtils = (currUser) => {
+    let dataUtilsContainer = document.createElement("div");
+    dataUtilsContainer.id = "dataUtilsContainer";
+    dataUtilsContainer.classList.add("p-2", "my-1")
+
+    let dataSaveBtn = document.createElement("button");
+    dataSaveBtn.classList.add("btn", "btn-primary", "btn-lg");
+    dataSaveBtn.innerText = "Save";
+    dataSaveBtn.addEventListener("click", () => {
+        userToLocalStorage(currUser);
+        alert("data saved");
+    })
+
+    dataUtilsContainer.append(dataSaveBtn);
+    return dataUtilsContainer;
 }
